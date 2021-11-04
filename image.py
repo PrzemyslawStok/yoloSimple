@@ -29,6 +29,7 @@ def main():
     image = tf.expand_dims(image, 0)
     resized_frame = resize_image(image, (model_size[0], model_size[1]))
     pred = model.predict(resized_frame)
+
     boxes, scores, classes, nums = output_boxes(
         pred, model_size,
         max_output_size=max_output_size,
