@@ -1,16 +1,21 @@
-# This is a sample Python script.
+#convert_weights.py
+import numpy as np
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+from convert_weights import load_weights
+from yolov3 import YOLOv3Net
+from yolov3 import parse_cfg
 
+def main():
+    weightfile = "weights/yolov3.weights"
+    cfgfile = "cfg/yolov3.cfg"
+    model_size = (416, 416, 3)
+    num_classes = 80
+    model = YOLOv3Net(cfgfile, model_size, num_classes)
+    load_weights(model, cfgfile, weightfile)
+    try:
+        model.save_weights('weights/yolov3_weights.tf')
+        print('\nThe file \'yolov3_weights.tf\' has been saved successfully.')
+    except IOError:
+        print("Couldn't write the file \'yolov3_weights.tf\'.")
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+main()
